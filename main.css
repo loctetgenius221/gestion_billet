@@ -205,3 +205,11 @@ table td {
     background-size: cover;
     background-position: center;
 }
+
+/* page client */
+
+#container{
+    background: url(images/bg-client.jpg);
+    background-position: center;
+    background-size: cover;
+}

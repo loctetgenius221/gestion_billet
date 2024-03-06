@@ -18,7 +18,7 @@
             <ul>
                 <li><a href="read.php" class="active"><i class="fa-solid fa-house"></i>Accueil</a></li>
                 <li><a href="create.php"><i class="fa-solid fa-plane-departure"></i>Réservation</a></li>
-                <li><a href="#"><i class="fa-solid fa-user"></i>Client</a></li>
+                <li><a href="client.php"><i class="fa-solid fa-user"></i>Client</a></li>
             </ul>
         </nav>
         <!--  -->
