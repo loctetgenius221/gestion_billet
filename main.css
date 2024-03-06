@@ -130,7 +130,7 @@ table td {
 
 .container .formulaire form {
     width: 500px;
-    height: 480px;
+    height: auto;
     overflow: hidden;
 }
 
@@ -176,6 +176,17 @@ table td {
 .container form .nom input,
 .container form .date input {
     width: 245px;
+    padding: 10px;
+    background: none;
+    border: none;
+    outline: none;
+    border-bottom: 2px solid white;
+    color: #fff;
+    font-size: 18px;
+}
+
+.container form .prix {
+    width: 100%;
     padding: 10px;
     background: none;
     border: none;
