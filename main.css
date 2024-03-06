@@ -55,3 +55,59 @@ body {
     color: #FE7A15;
     border-bottom: 2px solid #3011BC;
 }
+
+/* main section */
+main {
+    width: 100%;
+    min-height: 90vh;
+    background: linear-gradient(rgba(0,0,0,0.2), rgba(0,0,0,0.2)), url(images/voyage.jpg);
+    background-repeat: no-repeat;
+    background-size: cover;
+    padding: 0px 190px;
+    display: flex;
+    align-items: center;
+}
+
+table {
+    box-shadow: 0 0 3px rgba(0, 0, 0, 0.2);
+    border-collapse: collapse;
+    width: 100%;
+    table-layout: fixed;
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+table a {
+    text-align: center;
+}
+
+.image {
+    text-align: center;
+}
+
+.image img {
+    width: 30px;
+    text-align: center;
+}
+
+table tr {
+    background-color: rgba(21, 21, 21, 0.2);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid #ddd;
+}
+
+th {
+    text-align: unset;
+    background-color: #3011BC;
+    color: #fff;
+}
+
+th , td {
+    padding: 20px;
+    text-align: center;
+}
+
+table td {
+    color: white;
+    font-weight: bold;
+}
