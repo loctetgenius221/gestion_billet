@@ -158,12 +158,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     <th>Adresse</th>
                     <th>Téléphone</th>
                     <th>Email</th>
+                    <th>Modifier</th>
+                    <th>Supprimer</th>
                 </tr>
             </thead>
 
             <tbody>
                 <?php 
                     while($rows = mysqli_fetch_assoc($result)) {
+                        $id = $rows['id'];
                 ?>
                 <tr>
                     <td><?=$rows['id']?></td>
@@ -172,6 +175,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     <td><?=$rows['adresse']?></td>
                     <td><?=$rows['telephone']?></td>
                     <td><?=$rows['email']?></td>
+                    <td class="image">
+                        <a href='update.php?id=<?=$id?>'><img src="images/pen.png" alt=""></a>
+                    </td>
+                    <td class="image">
+                        <a href='delete_client.php?id=<?=$id?>'><img src="images/trash.png" alt=""></a>
+                    </td>
+
                 </tr>
 
                 <?php
