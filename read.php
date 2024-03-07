@@ -48,6 +48,7 @@
             <tbody>
                 <?php 
                     while($rows = mysqli_fetch_assoc($result)) {
+                        $id = $rows['id'];
                 ?>
                 <tr>
                     <td><?=$rows['id']?></td>
@@ -59,8 +60,8 @@
                     <td><?=$rows['au_depart_de']?></td>
                     <td><?=$rows['destination']?></td>
                     <td><?=$rows['id_client']?></td>
-                    <td class="image"><a href="modifierUser.php?id=<?=$rows['user_id']?>"><img src="images/pen.png" alt=""></a></td>
-                    <td class="image"><a href="deleteUser.php?id=<?=$rows['user_id']?>"><img src="images/trash.png" alt=""></a></td>
+                    <td class="image"><a href='update.php?id=<?=$id?>'><img src="images/pen.png" alt=""></a></td>
+                    <td class="image"><a href='delete.php?id=<?=$id?>'><img src="images/trash.png" alt=""></a></td>
                 </tr>
 
                 <?php

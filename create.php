@@ -33,7 +33,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     mysqli_stmt_close($stmt);
 
     if ($stmt) {
-        echo "<h1>Nouveau billet inséré avec succès</h1>";
+        header('location: read.php');
     } else {
         echo "<h1>Désolé! Votre billet n'a pas été inséré</h1>";
     }
