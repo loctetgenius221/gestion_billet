@@ -59,7 +59,7 @@ body {
 /* main section */
 main {
     width: 100%;
-    min-height: 90vh;
+    min-height: 100vh;
     background: linear-gradient(rgba(0,0,0,0.2), rgba(0,0,0,0.2)), url(images/voyage.jpg);
     background-repeat: no-repeat;
     background-size: cover;
@@ -130,7 +130,7 @@ table td {
 
 .container .formulaire form {
     width: 500px;
-    height: 480px;
+    height: auto;
     overflow: hidden;
 }
 
@@ -185,6 +185,17 @@ table td {
     font-size: 18px;
 }
 
+.container form .prix {
+    width: 100%;
+    padding: 10px;
+    background: none;
+    border: none;
+    outline: none;
+    border-bottom: 2px solid white;
+    color: #fff;
+    font-size: 18px;
+}
+
 .container form input[type="submit"]{
     background: #FE7A15;
     border: none;
@@ -213,3 +224,4 @@ table td {
     background-position: center;
     background-size: cover;
 }
+
