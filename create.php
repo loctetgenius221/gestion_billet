@@ -1,95 +1,71 @@
 <?php
-    include_once 'config.php';
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
 
-    $client_list = array();
+include_once 'config.php';
 
-    $sql_client = "SELECT * FROM client";
-    $resultat_client = mysqli_query($bdd, $sql_client);
+$client_list = array();
 
-    if ($resultat_client) {
-        while ($row = mysqli_fetch_assoc($resultat_client)) {
-            $client_list[$row['nom'] . ' ' . $row['prenom']] = $row['id'];
-            $client_id = $row['id'];
-        }
+$sql_client = "SELECT * FROM client";
+$resultat_client = mysqli_query($bdd, $sql_client);
 
-        // Correction : Déplacer cette ligne à l'intérieur de la boucle while pour récupérer le dernier id
-        
+if ($resultat_client) {
+    while ($row = mysqli_fetch_assoc($resultat_client)) {
+        $client_list[$row['nom'] . ' ' . $row['prenom']] = $row['id'];
+        $client_id = $row['id'];
     }
+}
 
-    if(isset($_POST['reserver'])) {
-        // Récupérer les valeurs du formulaire
-        $nom = $_POST["nom"];
-        $prenom = $_POST["prenom"];
-        $date_de_depart = $_POST["date_de_depart"];
-        $date_de_retour = $_POST["date_de_retour"];
-        $au_depart_de = $_POST["au_depart_de"];
-        $destination = $_POST["destination"];
-        $prix = $_POST["prix"];
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    $date_de_depart = isset($_POST['datededepart']) ? $_POST['datededepart'] : "";
+    $date_de_retour = isset($_POST['datederetour']) ? $_POST['datederetour'] : "";
+    $au_depart_de = isset($_POST['audepartde']) ? $_POST['audepartde'] : "";
+    $destination = isset($_POST['destination']) ? $_POST['destination'] : "";
+    $prix = isset($_POST['prix']) ? $_POST['prix'] : "";
+    $client_id_selected = isset($_POST['client']) ? $_POST['client'] : "";
 
-        // Correction : Utiliser le tableau $client_list pour obtenir l'id du client
-        $client_id = isset($_POST['client']) ? $_POST['client'] : 0;
+    // Utilisation de requêtes préparées pour éviter les injections SQL
+    $requete = "INSERT INTO billet (prix, date_de_depart, date_de_retour, au_depart_de, destination, id_client) VALUES (?, ?, ?, ?, ?, ?)";
+    $stmt = mysqli_prepare($bdd, $requete);
+    mysqli_stmt_bind_param($stmt, "sssssi", $prix, $date_de_depart, $date_de_retour, $au_depart_de, $destination, $client_id_selected);
+    mysqli_stmt_execute($stmt);
+    mysqli_stmt_close($stmt);
 
-        // Correction : Utiliser des marqueurs de position dans la requête préparée
-        $sql = "INSERT INTO billet (prix, date_de_depart, date_de_retour, au_depart_de, destination, id_client) VALUES (?, ?, ?, ?, ?, ?)";
-
-        if ($stmt = mysqli_prepare($bdd, $sql)) {
-            // Correction : Lier les variables à la requête préparée
-            mysqli_stmt_bind_param($stmt, "sssssi", $param_nom, $param_prenom, $param_date_de_depart, $param_date_de_retour, $param_au_depart_de, $param_client_id);
-
-            // Correction : Définir les paramètres
-            $param_nom = $nom;
-            $param_prenom = $prenom;
-            $param_date_de_depart = $date_de_depart;
-            $param_date_de_retour = $date_de_retour;
-            $param_au_depart_de = $au_depart_de;
-            $param_client_id = $client_id;
-
-            // Exécuter la requête
-            if (mysqli_stmt_execute($stmt)) {
-                header("location: index.php");
-                exit();
-            } else {
-                echo "Oops! Une erreur est survenue.";
-            }
-
-            // Fermer la déclaration
-            mysqli_stmt_close($stmt);
-        }
+    if ($stmt) {
+        echo "<h1>Nouveau billet inséré avec succès</h1>";
+    } else {
+        echo "<h1>Désolé! Votre billet n'a pas été inséré</h1>";
     }
+}
 ?>
 
 <!DOCTYPE html>
 <html lang="fr">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Formulaire d'ajout de billet</title>
     <link rel="stylesheet" href="main.css">
 </head>
+
 <body>
     <?php include 'header.php'; ?>
     <div class="container">
         <div class="formulaire">
             <form action="" method="POST">
-                <div class="nom">
-                    <label>Nom <br>
-                        <input type="text" name="nom" id="nom" placeholder="Entrez le nom..">
-                    </label><br>
-                    <label>Prénom <br>
-                        <input type="text" name="prenom" placeholder="Entrez le prénom..">
-                    </label><br>
-                </div>
                 <div class="date">
                     <label>Date de départ<br>
-                        <input type="date" name="date_de_depart" placeholder="Entrez la date de départ..">
+                        <input type="date" name="datededepart" placeholder="Entrez la date de départ..">
                     </label>
                     <label>Date de retour<br>
-                        <input type="date" name="date_de_retour" placeholder="Entrez la date de retour..">
+                        <input type="date" name="datederetour" placeholder="Entrez la date de retour..">
                     </label>
                 </div>
                 <div class="dest">
                     <label>Au départ de <br>
-                        <input type="text" name="au_depart_de" placeholder="Entrez le lieu de départ.." class="destination">
+                        <input type="text" name="audepartde" placeholder="Entrez le lieu de départ.." class="destination">
                     </label>
                     <label>Destination <br>
                         <input type="text" name="destination" placeholder="Entrez la destination.." class="destination">
@@ -99,13 +75,12 @@
                 <label>Prix <br>
                     <input type="number" name="prix" placeholder="Entrez le prix.." class="prix">
                 </label><br><br>
-                <!-- Correction : Ajouter une liste déroulante pour sélectionner le client -->
                 <label>Client <br>
                     <select name="client">
                         <?php
-                            foreach ($client_list as $client_name => $client_id) {
-                                echo "<option value='$client_id'>$client_name</option>";
-                            }
+                        foreach ($client_list as $client_name => $client_id) {
+                            echo "<option value='$client_id'>$client_name</option>";
+                        }
                         ?>
                     </select>
                 </label><br><br>
@@ -115,4 +90,5 @@
         <div class="bg-img"></div>
     </div>
 </body>
+
 </html>

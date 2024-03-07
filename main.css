@@ -59,7 +59,7 @@ body {
 /* main section */
 main {
     width: 100%;
-    min-height: 90vh;
+    min-height: 100vh;
     background: linear-gradient(rgba(0,0,0,0.2), rgba(0,0,0,0.2)), url(images/voyage.jpg);
     background-repeat: no-repeat;
     background-size: cover;
@@ -224,3 +224,4 @@ table td {
     background-position: center;
     background-size: cover;
 }
+
