@@ -225,3 +225,22 @@ table td {
     background-size: cover;
 }
 
+/* page modifier client */
+#container-update {
+    background: linear-gradient(rgba(0,0,0,0.2), rgba(0,0,0,0.2)), url(images/modify-client.jpg);
+    background-size: cover;
+    background-position: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+
+#container-update .client-form {
+    background: #3011bc9c;
+    backdrop-filter: blur(10px);
+    width: 700px;
+    padding: 30px 25px;
+    border-radius: 15px;
+
+}

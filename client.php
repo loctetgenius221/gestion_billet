@@ -176,7 +176,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     <td><?=$rows['telephone']?></td>
                     <td><?=$rows['email']?></td>
                     <td class="image">
-                        <a href='update.php?id=<?=$id?>'><img src="images/pen.png" alt=""></a>
+                        <a href='update_client.php?id=<?=$id?>'><img src="images/pen.png" alt=""></a>
                     </td>
                     <td class="image">
                         <a href='delete_client.php?id=<?=$id?>'><img src="images/trash.png" alt=""></a>
